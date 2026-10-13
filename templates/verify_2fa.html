@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Two-Factor Authentication</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f0f2f5; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .card { background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); width: 340px; text-align: center; }
+        h2 { margin-top: 0; color: #333; }
+        p { font-size: 13px; color: #666; margin-bottom: 20px; line-height: 1.4; }
+        .form-group { margin-bottom: 15px; }
+        input { width: 100%; padding: 10px; font-size: 18px; text-align: center; letter-spacing: 4px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        button { width: 100%; background: #28a745; color: white; border: none; padding: 10px; border-radius: 4px; font-weight: bold; cursor: pointer; }
+        button:hover { background: #218838; }
+        .alert { padding: 10px; margin-bottom: 15px; border-radius: 4px; font-size: 13px; text-align: left; }
+        .alert-danger { background-color: #f8d7da; color: #721c24; }
+        .alert-info { background-color: #d1ecf1; color: #0c5460; }
+        .back-link { display: block; margin-top: 15px; font-size: 13px; color: #007bff; text-decoration: none; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>Admin Security Verification</h2>
+        <p>A 2-step verification code was dispatched for this privileged account. Enter the 6-digit passcode to proceed.</p>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <form method="POST">
+            <div class="form-group">
+                <input type="text" name="otp" maxlength="6" pattern="\d{6}" placeholder="------" required autofocus>
+            </div>
+            <button type="submit">Verify & Access Dashboard</button>
+        </form>
+
+        <a href="{{ url_for('login') }}" class="back-link">Cancel and return to login</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Session Audit Logs</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f0f2f5; margin: 0; padding: 20px; }
+        .container { max-width: 800px; margin: 0 auto; background: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        th, td { border: 1px solid #ddd; padding: 10px 12px; text-align: left; font-size: 14px; }
+        th { background-color: #343a40; color: white; }
+        tr:nth-child(even) { background-color: #f9f9f9; }
+        .back-link { display: inline-block; margin-bottom: 15px; color: #007bff; text-decoration: none; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="{{ url_for('root') }}" class="back-link">← Back to Dashboard</a>
+        <h2>User Session & Login Audit Trail</h2>
+        <p style="color: #666; font-size: 14px;">Historical log tracking who logged in, their assigned department, and the timestamp.</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Log ID</th>
+                    <th>Username</th>
+                    <th>Department</th>
+                    <th>Login Timestamp</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for log in logs %}
+                <tr>
+                    <td>#{{ log['id'] }}</td>
+                    <td><strong>{{ log['username'] }}</strong></td>
+                    <td>{{ log['department'] }}</td>
+                    <td>{{ log['login_time'] }}</td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="4" style="text-align: center; color: #888;">No login activity recorded yet.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

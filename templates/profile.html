@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Profile - Employee Portal</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f0f2f5; margin: 0; padding: 25px; }
+        .container { max-width: 500px; margin: 0 auto; background: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+        .back-link { display: inline-block; margin-bottom: 15px; color: #007bff; text-decoration: none; font-weight: bold; }
+        .user-info { background: #f8f9fa; border: 1px solid #e2e8f0; border-radius: 6px; padding: 15px; margin-bottom: 20px; }
+        .user-info p { margin: 6px 0; font-size: 14px; }
+        .form-group { margin-bottom: 14px; }
+        label { display: block; font-weight: bold; margin-bottom: 4px; font-size: 13px; color: #444; }
+        input { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        .btn-update { background-color: #007bff; color: white; border: none; padding: 9px 18px; border-radius: 4px; font-weight: bold; cursor: pointer; }
+        .btn-update:hover { background-color: #0056b3; }
+        .alert { padding: 10px; margin-bottom: 15px; border-radius: 4px; font-size: 13px; }
+        .alert-success { background: #d4edda; color: #155724; }
+        .alert-danger { background: #f8d7da; color: #721c24; }
+        .alert-warning { background: #fff3cd; color: #856404; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="{{ url_for('root') }}" class="back-link">← Back to Dashboard</a>
+        <h2>User Profile & Security</h2>
+        
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <div class="user-info">
+            <p><strong>Username:</strong> {{ session['username'] }}</p>
+            <p><strong>Department:</strong> {{ session['department'] }}</p>
+            <p><strong>Role:</strong> {{ session['role'] }}</p>
+            <p><strong>Session Expiry:</strong> 30 Minutes of Inactivity</p>
+        </div>
+
+        <h3>Change Password</h3>
+        <form method="POST">
+            <div class="form-group">
+                <label>Current Password</label>
+                <input type="password" name="current_password" required placeholder="Enter current password">
+            </div>
+            <div class="form-group">
+                <label>New Password</label>
+                <input type="password" name="new_password" required placeholder="Enter new password (min. 5 chars)">
+            </div>
+            <div class="form-group">
+                <label>Confirm New Password</label>
+                <input type="password" name="confirm_password" required placeholder="Confirm new password">
+            </div>
+            <button type="submit" class="btn-update">Update Password</button>
+        </form>
+    </div>
+</body>
+</html>

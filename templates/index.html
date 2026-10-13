@@ -2,176 +2,111 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Employee Management System</title>
+    <title>{{ dept_name }} Department - Employee Portal</title>
     <style>
-        /* General page layout */
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            background-color: #f0f2f5;
-            margin: 0;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 850px;
-            margin: 0 auto;
-            background: #ffffff;
-            padding: 25px;
-            border-radius: 8px;
-            box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        h2, h3 {
-            color: #333333;
-            margin-top: 0;
-        }
-
-        /* Form styling */
-        .form-box {
-            background-color: #f9fbfd;
-            border: 1px solid #dbe2ea;
-            border-radius: 6px;
-            padding: 20px;
-            margin-bottom: 25px;
-        }
-
-        .form-group {
-            margin-bottom: 12px;
-        }
-
-        .form-group label {
-            display: block;
-            font-weight: bold;
-            margin-bottom: 5px;
-            font-size: 14px;
-            color: #444;
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-            font-size: 14px;
-        }
-
-        .form-group input:focus {
-            border-color: #0066cc;
-            outline: none;
-        }
-
-        .btn-submit {
-            background-color: #28a745;
-            color: white;
-            border: none;
-            padding: 9px 18px;
-            font-size: 14px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        .btn-submit:hover {
-            background-color: #218838;
-        }
-
-        /* Table styling */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 15px;
-        }
-
-        th, td {
-            border: 1px solid #dddddd;
-            padding: 10px 12px;
-            text-align: left;
-            font-size: 14px;
-        }
-
-        th {
-            background-color: #007bff;
-            color: white;
-        }
-
-        tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-
-        tr:hover {
-            background-color: #f1f1f1;
-        }
-
-        /* Action buttons */
-        .btn-edit {
-            background-color: #ffc107;
-            color: #212529;
-            text-decoration: none;
-            padding: 5px 10px;
-            border-radius: 3px;
-            font-size: 13px;
-            font-weight: bold;
-            display: inline-block;
-            margin-right: 5px;
-        }
-
-        .btn-edit:hover {
-            background-color: #e0a800;
-        }
-
-        .btn-delete {
-            background-color: #dc3545;
-            color: white;
-            border: none;
-            padding: 6px 10px;
-            border-radius: 3px;
-            font-size: 13px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        .btn-delete:hover {
-            background-color: #c82333;
-        }
+        body { font-family: Arial, sans-serif; background-color: #f0f2f5; margin: 0; padding: 20px; }
+        .navbar { background: #343a40; color: white; padding: 12px 20px; border-radius: 6px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .navbar a { color: #ffc107; text-decoration: none; font-weight: bold; margin-left: 15px; font-size: 14px; }
+        .container { max-width: 900px; margin: 0 auto; background: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+        .role-badge { padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; }
+        .badge-admin { background: #28a745; color: white; }
+        .badge-user { background: #6c757d; color: white; }
+        .form-box { background: #f9fbfd; border: 1px solid #dbe2ea; border-radius: 6px; padding: 20px; margin-bottom: 25px; }
+        .form-group { margin-bottom: 12px; }
+        label { display: block; font-weight: bold; margin-bottom: 4px; font-size: 13px; color: #444; }
+        input { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        .btn-submit { background-color: #28a745; color: white; border: none; padding: 9px 18px; border-radius: 4px; font-weight: bold; cursor: pointer; }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        th, td { border: 1px solid #ddd; padding: 10px 12px; text-align: left; font-size: 14px; }
+        th { background-color: #007bff; color: white; }
+        tr:nth-child(even) { background-color: #f9f9f9; }
+        .btn-edit { background: #ffc107; color: #212529; text-decoration: none; padding: 5px 10px; border-radius: 3px; font-weight: bold; font-size: 13px; }
+        .btn-delete { background: #dc3545; color: white; border: none; padding: 6px 10px; border-radius: 3px; font-weight: bold; font-size: 13px; cursor: pointer; }
+        .alert { padding: 10px 15px; margin-bottom: 15px; border-radius: 4px; font-size: 14px; }
+        .alert-success { background: #d4edda; color: #155724; }
+        .alert-danger { background: #f8d7da; color: #721c24; }
+        .alert-info { background: #d1ecf1; color: #0c5460; }
     </style>
 </head>
 <body>
-
     <div class="container">
-        <h2>Employee Management Portal (CRUD)</h2>
-        <hr style="border: 0; border-top: 1px solid #eee; margin-bottom: 20px;">
-
-        <!-- CREATE: Add Employee Form -->
-        <div class="form-box">
-            <h3>Add New Employee</h3>
-            <form method="POST">
-                <div class="form-group">
-                    <label>Full Name:</label>
-                    <input type="text" name="name" placeholder="Enter full name" required>
-                </div>
-
-                <div class="form-group">
-                    <label>Email ID:</label>
-                    <input type="email" name="email" placeholder="Enter corporate email" required>
-                </div>
-
-                <div class="form-group">
-                    <label>Department:</label>
-                    <input type="text" name="department" placeholder="e.g. Production, IT, HR" required>
-                </div>
-
-                <div class="form-group">
-                    <label>Role / Position:</label>
-                    <input type="text" name="role" placeholder="e.g. Project Manager, Intern" required>
-                </div>
-
-                <button type="submit" class="btn-submit">Add Employee</button>
-            </form>
+        <!-- Top Navbar -->
+        <div class="navbar">
+            <div>
+                <strong>Logged In:</strong> {{ session['username'] }} ({{ session['department'] }})
+                {% if is_admin %}
+                    <span class="role-badge badge-admin">Admin Privileges</span>
+                {% else %}
+                    <span class="role-badge badge-user">Read-Only</span>
+                {% endif %}
+            </div>
+            <div>
+    {% if is_admin %}
+        <a href="{{ url_for('view_login_logs') }}">Audit Logs</a>
+    {% endif %}
+    <a href="{{ url_for('logout') }}" style="color: #ff6b6b;">Logout</a>
+</div>
+<div>
+    {% if is_admin %}
+        <a href="{{ url_for('view_login_logs') }}">Audit Logs</a>
+    {% endif %}
+    <a href="{{ url_for('profile') }}">Profile</a>
+    <a href="{{ url_for('logout') }}" style="color: #ff6b6b;">Logout</a>
+</div>
+            <div>
+                {% if is_admin %}
+                    <a href="{{ url_for('view_login_logs') }}">Audit Logs</a>
+                {% endif %}
+                <a href="{{ url_for('logout') }}" style="color: #ff6b6b;">Logout</a>
+            </div>
         </div>
 
+        <!-- Flash messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <h2>{{ dept_name }} Department Dashboard</h2>
+        <p style="color: #666; font-size: 14px;">
+            {% if is_admin %}
+                Showing all active company records. You have full Administrative (Create/Update/Delete) rights.
+            {% else %}
+                Showing active records for {{ dept_name }}. Administrative controls are restricted to HR and IT.
+            {% endif %}
+        </p>
+
+        <!-- CREATE: Add Employee (HR / IT ONLY) -->
+        {% if is_admin %}
+        <div class="form-box">
+            <h3 style="margin-top:0;">Add / Re-hire Employee</h3>
+            <form action="{{ url_for('add_employee') }}" method="POST">
+                <div class="form-group">
+                    <label>Full Name:</label>
+                    <input type="text" name="name" required placeholder="e.g. Rahul Sharma">
+                </div>
+                <div class="form-group">
+                    <label>Email ID (Re-hires permitted):</label>
+                    <input type="email" name="email" required placeholder="e.g. rahul@company.com">
+                </div>
+                <div class="form-group">
+                    <label>Department:</label>
+                    <input type="text" name="department" required placeholder="e.g. Engineering, IT, HR, Operations">
+                </div>
+                <div class="form-group">
+                    <label>Role:</label>
+                    <input type="text" name="role" required placeholder="e.g. Project Manager">
+                </div>
+                <button type="submit" class="btn-submit">Register Employee</button>
+            </form>
+        </div>
+        {% endif %}
+
         <!-- READ: Table View -->
-        <h3>Registered Employees</h3>
+        <h3>Active Employee Directory</h3>
         <table>
             <thead>
                 <tr>
@@ -180,32 +115,37 @@
                     <th>Email</th>
                     <th>Department</th>
                     <th>Role</th>
-                    <th>Actions</th>
+                    {% if is_admin %}<th>Admin Actions</th>{% endif %}
                 </tr>
             </thead>
             <tbody>
                 {% for emp in employees %}
                 <tr>
-                    <td>{{ emp['id'] }}</td>
+                    <td>#{{ emp['id'] }}</td>
                     <td><strong>{{ emp['name'] }}</strong></td>
                     <td>{{ emp['email'] }}</td>
                     <td>{{ emp['department'] }}</td>
                     <td>{{ emp['role'] }}</td>
+                    {% if is_admin %}
                     <td>
                         <a href="{{ url_for('edit', id=emp['id']) }}" class="btn-edit">Edit</a>
                         <form action="{{ url_for('delete', id=emp['id']) }}" method="POST" style="display:inline;">
-                            <button type="submit" class="btn-delete" onclick="return confirm('Are you sure you want to delete this record?');">Delete</button>
+                          <button type="submit" class="btn-delete" onclick="return confirm('Deactivate employee #{{ emp.id }}? If they rejoin, they will be given a brand-new ID.');">Delete</button>
                         </form>
                     </td>
+                    {% endif %}
                 </tr>
                 {% else %}
                 <tr>
-                    <td colspan="6" style="text-align:center; color: #888;">No employee records present in the database.</td>
+                    {% if is_admin %}
+                    <td colspan="6" style="text-align:center; color: #888;">No active records found.</td>
+                    {% else %}
+                    <td colspan="5" style="text-align:center; color: #888;">No active records found.</td>
+                    {% endif %}
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
-
 </body>
 </html>

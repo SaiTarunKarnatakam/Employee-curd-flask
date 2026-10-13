@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login - Employee Portal</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f0f2f5; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .login-card { background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); width: 340px; }
+        h2 { text-align: center; margin-top: 0; color: #333; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; font-size: 13px; color: #555; }
+        input { width: 100%; padding: 9px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        button { width: 100%; background: #007bff; color: white; border: none; padding: 10px; border-radius: 4px; font-weight: bold; cursor: pointer; margin-top: 10px; }
+        button:hover { background: #0056b3; }
+        .alert { padding: 10px; margin-bottom: 15px; border-radius: 4px; font-size: 13px; }
+        .alert-danger { background-color: #f8d7da; color: #721c24; }
+        .alert-info { background-color: #d1ecf1; color: #0c5460; }
+        .demo-accounts { margin-top: 20px; font-size: 12px; background: #f8f9fa; padding: 10px; border-radius: 4px; color: #666; border: 1px dashed #ccc; }
+    </style>
+</head>
+<body>
+    <div class="login-card">
+        <h2>Portal Login</h2>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <form method="POST">
+            <div class="form-group">
+                <label>Username</label>
+                <input type="text" name="username" placeholder="Enter username" required autofocus>
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" name="password" placeholder="Enter password" required>
+            </div>
+            <button type="submit">Sign In</button>
+        </form>
+
+        <div class="demo-accounts">
+            <strong>Default Credentials:</strong><br>
+            • HR Admin: <code>admin_hr</code> / <code>hr123</code><br>
+            • IT Admin: <code>admin_it</code> / <code>it123</code><br>
+            • Engineering: <code>eng_user</code> / <code>eng123</code>
+        </div>
+    </div>
+</body>
+</html>

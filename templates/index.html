@@ -48,6 +48,15 @@
 </div>
 <div>
     {% if is_admin %}
+        <a href="{{ url_for('view_governance_logs') }}" style="color: #6ee7b7;">Mutation Audit</a>
+        <a href="{{ url_for('view_login_logs') }}">Login Logs</a>
+    {% endif %}
+    <a href="{{ url_for('workforce_ai_summary') }}" target="_blank" style="color: #93c5fd;">AI Telemetry (JSON)</a>
+    <a href="{{ url_for('profile') }}">Profile</a>
+    <a href="{{ url_for('logout') }}" style="color: #ff6b6b;">Logout</a>
+</div>
+<div>
+    {% if is_admin %}
         <a href="{{ url_for('view_login_logs') }}">Audit Logs</a>
     {% endif %}
     <a href="{{ url_for('profile') }}">Profile</a>
